@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movies_game/src/model/dto/category.dart';
+import 'package:movies_game/src/model/dto/quizz.dart';
 import 'package:movies_game/src/model/service/category_service.dart';
+import 'package:movies_game/src/presentation/screen/quizz.dart';
 import 'package:movies_game/src/presentation/widget/header.dart';
 import 'package:movies_game/src/presentation/widget/home/categories.dart';
 import 'package:movies_game/src/presentation/widget/spinner.dart';
@@ -34,8 +36,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _selectCategory(CategoryDTO category) {
+  void _selectCategory(CategoryDTO category) async {
+    List<QuizzDTO> quizzes = await _service.getQuizz(category.id);
 
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => QuizzPage(quizzes, category))
+    );
   }
 
   void _selectAll() {
