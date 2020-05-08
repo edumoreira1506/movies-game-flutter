@@ -1,5 +1,6 @@
 
 import 'package:flutter/widgets.dart';
+import 'package:movies_game/src/presentation/widget/spinner.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isLoading;
+
   @override
   void initState() {
     super.initState();
@@ -14,6 +17,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Eai');
+    return Spinner();
   }
 }
