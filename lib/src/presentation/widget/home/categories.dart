@@ -22,11 +22,11 @@ class Categories extends StatelessWidget {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10
         ),
-        itemCount: this._categories.length + 2,
+        itemCount: this._categories.length + 1,
         itemBuilder: (context, index) =>
           index < this._categories.length
            ? CategoryCard(this._categories[index].name, () => this._onToggleCategory(this._categories[index]))
-           : index % 2 == 0 ? SquareButton('All', this._onSelectAll) : SquareButton('Ranking', this._onOpenRanking)
+           : SquareButton('All', this._onSelectAll)
       )
     );
   }

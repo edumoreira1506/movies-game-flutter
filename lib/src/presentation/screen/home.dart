@@ -45,8 +45,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _selectAll() {
+  void _selectAll() async {
+    List<QuizzDTO> quizzes = await _service.getAll();
 
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => QuizzPage(quizzes, CategoryDTO('Todas', 0)))
+    );
   }
 
   void _showRanking() {
@@ -60,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Categories(this._categories, this._selectCategory, this._selectAll, this._showRanking)
+          Categories(this._categories, this._selectCategory, this._showRanking, this._selectAll)
         ]
       )
     );

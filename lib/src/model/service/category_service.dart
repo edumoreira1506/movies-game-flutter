@@ -41,4 +41,23 @@ class CategoryService {
 
     return quizzes;
   }
+
+  Future<List<QuizzDTO>> getAll() async {
+    http.Response response = await http.get("$_apiUrl/setup");
+
+    Map<String, dynamic> parsedResponse = json.decode(response.body);
+    List<dynamic> mapQuizzes = parsedResponse['quizzes'] ?? [];
+    List<QuizzDTO> quizzes = _unserialize(mapQuizzes);
+
+    return quizzes;
+  }
+
+  List<QuizzDTO> _unserialize(List<dynamic> map) {
+  return map.map((quizzMap) {
+      List<dynamic> answersMap = quizzMap['answers'];
+      List<AnswerDTO> answers = answersMap.map((answerMap) => AnswerMapper.toDTO(answerMap)).toList();
+
+      return QuizzMapper.toDTO(quizzMap, answers);
+    }).toList();
+  }
 }

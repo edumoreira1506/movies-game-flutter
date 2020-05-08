@@ -27,6 +27,7 @@ class Quizz extends StatelessWidget {
               child: ListView.builder(
                 itemBuilder: (context, index) => Answer(this._quizz.answers[index], (newValue) => this._onChange(newValue, index)),
                 itemCount: this._quizz.answers.length,
+                physics: new NeverScrollableScrollPhysics()
               ),
             ),
           ],
