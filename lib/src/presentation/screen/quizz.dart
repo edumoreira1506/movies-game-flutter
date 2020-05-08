@@ -48,6 +48,26 @@ class _QuizzPageState extends State<QuizzPage> {
     });
   }
 
+  void _handleFinish() {
+    int amountRightAnswers = _quizzes.where((quizz) => quizz.right()).toList().length;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("$amountRightAnswers de ${_quizzes.length} acertos"),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Boa!'),
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+          )
+        ],
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,10 +75,28 @@ class _QuizzPageState extends State<QuizzPage> {
       body: ListView.builder(
         padding: EdgeInsets.all(10),
         itemBuilder: (context, index) => ConstrainedBox(
-          child: Quizz(this._quizzes[index], (checked, indexAnswer) => this._handleChangeAnswwer(index, indexAnswer, checked)),
+          child: index < this._quizzes.length
+            ? Quizz(this._quizzes[index], (checked, indexAnswer) => this._handleChangeAnswwer(index, indexAnswer, checked))
+            : Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: Container(
+                  height: 50,
+                  child: RaisedButton(
+                    onPressed: this._handleFinish,
+                    child: Text(
+                      'Check!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25
+                      ),
+                    ),
+                    color: Colors.lightBlue,
+                  ),
+                )
+              ),
           constraints: BoxConstraints(minHeight: 10, maxHeight: 400),
         ),
-        itemCount: this._quizzes.length,
+        itemCount: this._quizzes.length + 1,
       )
     );
   }

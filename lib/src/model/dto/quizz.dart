@@ -7,4 +7,11 @@ class QuizzDTO {
   List<AnswerDTO> answers;
 
   QuizzDTO(this.content, this.answers, this.id);
+
+  bool right() {
+    List<AnswerDTO> rightAnswers = answers.where((answer) => answer.correct).toList();
+    AnswerDTO rightAnswer = rightAnswers.first;
+
+    return rightAnswer.checked;
+  }
 }
